@@ -149,4 +149,4 @@ data_out.packets = [data];
 
 ## Updating the SDK
 
-If there are new API calls available on iotery.io and `IoteryDevice.m` or `IoteryAccountManager.m` has not been updated, then you can simple run `generator.m` and it will automatically generate an updated `IoteryDevice.m` and `IoteryAccountManager.m` files. Careful, it will overwrite your current files!
+If there are new API calls available on iotery.io and `IoteryDevice.m` or `IoteryAccountManager.m` has not been updated, then you can simple run `src/generator.m` and it will automatically generate an updated `IoteryDevice.m` and `IoteryAccountManager.m` files. Careful, it will overwrite your current files!
