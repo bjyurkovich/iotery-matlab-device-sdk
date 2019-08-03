@@ -6,7 +6,7 @@ clc;
 % Instantiate the Device Communication Class (IoteryDevice).
 % This assumes you have created `traffic_vehicle` in the Iotery Dashboard.
 % The last argument is the team ID (uuid), retrieved at https://iotery.io/system
-device_comm = IoteryDevice('traffic_vehicle', 'traffic_vehicle', 'traffic_vehicle', '9ad3ac24-b2e9-11e9-80f6-d283610663ec');
+device_comm = IoteryDevice('traffic_vehicle', 'traffic_vehicle', 'traffic_vehicle', '8ad3ac24-b2f9-21e9-80f6-e283610663ec');
 
 % Get the token (security step).  This is basic security.  You will want to
 % review keyed security if you are interested in implementing
