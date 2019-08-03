@@ -5,7 +5,7 @@ clc;
 
 % Instantiate the Iotery Communication class for Account Manager.
 % The argument is the token, retrieved at https://iotery.io/system
-iotery = IoteryAccountManager('ZXlKMGVYQWlPaUpLVjFRaUxDSmhiR2NpT2lKSVV6STFOaUo5LmV5SnpkV0lpT2lJNVlXUXpZV015TkMxaU1tVTVMVEV4WlRrdE9EQm1OaTFrTWpnek5qRXdOall6WldNaUxDSnBZWFFpT2pFMU5qUTFNRFV5TURBc0ltVjRjQ0k2TkRjeU1ESTJOVEl3TUgwLmdZV2NQUW1ZY1ZhaktmTEJPaXR2b2piaE96S3JaTW55RHlZTXdTckxnN3c=');
+iotery = IoteryAccountManager('IOTERY-API-TOKEN-GOES-HERE');
 
 % Retrieve all the team's device types and devices
 device_types = iotery.getDeviceTypeList().results;
