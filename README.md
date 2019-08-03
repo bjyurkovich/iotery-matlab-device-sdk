@@ -86,9 +86,10 @@ would be built like so:
 data_out = struct();
 data_out.packets = [];
 
-t1 = datetime()
+t1 = datetime();
 format longG
 data.timestamp = posixtime(t1);
+data.fractionalSeconds = 0.33;
 
 data.deviceUuid = 'ba90ac1a-b3db-11e9-aa6f-79fb808c3f95';
 data.deviceTypeUuid = 'ba6764e0-b3db-11e9-aa6f-79fb808c3f95';
