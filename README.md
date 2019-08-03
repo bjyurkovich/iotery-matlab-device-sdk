@@ -1,13 +1,17 @@
-# Iotery MATLAB Device (Embedded) SDK
+# Iotery MATLAB SDKs
 
-The Iotery Embedded MATLAB SDK is a light REST wrapper for the [Iotery REST API](https://iotery.io/docs/embedded) designed to help
-the MATLAB user emulate a device in MATLAB and interact with the cloud as if it was a real device.
+Iotery is a manage IoT cloud service.
 
-## Using the SDK in MATLAB
+The Iotery Embedded and Account Manager MATLAB SDKs are a light REST wrappers for the [Iotery REST API](https://iotery.io/docs) designed to help
+the MATLAB user emulate a device in MATLAB or manage their IoT deployment (Iotery Account).
 
-Download the included file `IoteryDevice.m` and place it in your current directory.
+## Using the SDKs in MATLAB
 
-## Example
+To use the Embedded SDK, download the included file `IoteryDevice.m` and place it in your current directory.
+
+To use the Account Manager SDK, download the included file `IoteryAccountManager.m` and place it in your current directory.
+
+## Example - Embedded
 
 The following example assumes that you have created a device type, device, and data types in Iotery via the dashboard or API.
 
@@ -51,6 +55,50 @@ device_comm.postData(device.uuid, data_out)
 
 % Retrieve the data as a CSV on the Iotery dashboard, or check out the
 % Server API at https://iotery.io/docs/account-manager
+
+```
+
+## Example - Account Manager
+
+The following is an example of retrieving data from Iotery for an Iotery IoT device.
+
+```matlab
+% 2019 Iotery Account Manager Examples
+clear all;
+close all;
+clc;
+
+% Instantiate the Iotery Communication class for Account Manager.
+% The argument is the token, retrieved at https://iotery.io/system
+iotery = IoteryAccountManager('IOTERY-API-TOKEN-GOES-HERE');
+
+% Retrieve all the team's device types and devices
+device_types = iotery.getDeviceTypeList().results;
+devices = iotery.getDeviceList().results;
+
+% The following example assumes you have created a vehicle device with data
+% type 'VEHICLE_SPEED' on the Iotery dashboard (or through the
+% IoteryAccountManager API) and posted some data using the Embedded API
+% (using IoteryDevice.m)
+data = iotery.getDeviceDataList(devices(1).uuid).results;
+
+% Plot data for vehicle speed
+unit = {};
+timestamp = [];
+vehicle_speed = [];
+for i=1:length(data)
+    if strcmp(data(i).dataType.enum, 'VEHICLE_SPEED')
+        unit{end+1} = data(i).dataType.units;
+        timestamp(end+1) = data(i).timestamp;
+        vehicle_speed(end+1) = data(i).value;
+    end
+end
+
+figure()
+plot(timestamp, vehicle_speed, '--.', 'LineWidth', 2, 'MarkerSize', 25)
+xlabel('Unix Timestamp')
+ylabel(['Vehicle Speed (' unit{1} ')'])
+grid on;
 
 ```
 
@@ -101,4 +149,4 @@ data_out.packets = [data];
 
 ## Updating the SDK
 
-If there are new API calls available on iotery.io and `IoteryDevice.m` has not been updated, then you can simple run `generator.m` and it will automatically generate an updated IoteryDevice.m file. Careful, it will overwrite your current file!
+If there are new API calls available on iotery.io and `IoteryDevice.m` or `IoteryAccountManager.m` has not been updated, then you can simple run `generator.m` and it will automatically generate an updated `IoteryDevice.m` and `IoteryAccountManager.m` files. Careful, it will overwrite your current files!

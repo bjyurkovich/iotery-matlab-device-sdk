@@ -3,7 +3,29 @@ classdef IoteryDevice < handle
 %     For more information on the funtions,  see:
 %     https://iotery.io/v1/docs/embedded
 %       Available methods:
-%       ###DOCS###
+%		getDeviceTokenBasic( data)
+%		setBatchedCommandInstancesAsExecuted(batchReferenceUuid,  data)
+%		getBrokerAddress( )
+%		reportAlreadyExecutedCommands( data)
+%		setCommandInstanceAsExecuted(commandInstanceUuid,  data)
+%		getCommandTypeList( )
+%		getCurrentTimestamp( )
+%		getDataTypeList( )
+%		updateDeviceChannel(deviceUuid, channelId,  data)
+%		createDeviceCommandInstance(deviceUuid, commandTypeUuid,  data)
+%		postData(deviceUuid,  data)
+%		upsertDeviceSettings(deviceUuid,  data)
+%		getDeviceSettingList(deviceUuid,  )
+%		getDeviceUnexecutedCommandInstanceList(deviceUuid,  )
+%		uploadDeviceLogs(deviceUuid,  data)
+%		getDeviceTypeFirmwareRecord(deviceTypeUuid, version,  )
+%		getPublicCloudKey( )
+%		getMe( )
+%		getNotificationTypeList( )
+%		setNotificationInstanceInactive(notificationInstanceUuid,  data)
+%		getSettingTypeList( )
+%		getDeviceTokenAsymmetric( data)
+
     
     properties
         serial = '';
@@ -206,12 +228,12 @@ end
         end
         
         function res = httpPatchWithAuth(obj, route, data)
-            options = weboptions('HeaderFields', {'Content-Type' 'application/json', 'Authorization' ['Bearer ' obj.token]}, 'RequestMethod', 'patch');
+            options = weboptions('HeaderFields', {'Content-Type' 'application/json'; 'Authorization' ['Bearer ' obj.token]}, 'RequestMethod', 'patch');
             res = webwrite([obj.base_url route], data, options);
         end
         
         function res = httpPostWithAuth(obj, route, data)
-            options = weboptions('HeaderFields',{'Content-Type' 'application/json', 'Authorization' ['Bearer ' obj.token]});
+            options = weboptions('HeaderFields',{'Content-Type' 'application/json'; 'Authorization' ['Bearer ' obj.token]});
             res = webwrite([obj.base_url route], data, options);
         end
         

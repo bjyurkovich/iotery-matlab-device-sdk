@@ -3,7 +3,7 @@ classdef IoteryDevice < handle
 %     For more information on the funtions,  see:
 %     https://iotery.io/v1/docs/embedded
 %       Available methods:
-%       ###DOCS###
+%###DOCS###
     
     properties
         serial = '';
@@ -52,12 +52,12 @@ classdef IoteryDevice < handle
         end
         
         function res = httpPatchWithAuth(obj, route, data)
-            options = weboptions('HeaderFields', {'Content-Type' 'application/json', 'Authorization' ['Bearer ' obj.token]}, 'RequestMethod', 'patch');
+            options = weboptions('HeaderFields', {'Content-Type' 'application/json'; 'Authorization' ['Bearer ' obj.token]}, 'RequestMethod', 'patch');
             res = webwrite([obj.base_url route], data, options);
         end
         
         function res = httpPostWithAuth(obj, route, data)
-            options = weboptions('HeaderFields',{'Content-Type' 'application/json', 'Authorization' ['Bearer ' obj.token]});
+            options = weboptions('HeaderFields',{'Content-Type' 'application/json'; 'Authorization' ['Bearer ' obj.token]});
             res = webwrite([obj.base_url route], data, options);
         end
         
