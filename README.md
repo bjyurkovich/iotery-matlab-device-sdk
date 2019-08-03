@@ -1,6 +1,6 @@
 # Iotery MATLAB SDKs
 
-Iotery is a manage IoT cloud service.
+Iotery is a managed IoT cloud service.
 
 The Iotery Embedded and Account Manager MATLAB SDKs are a light REST wrappers for the [Iotery REST API](https://iotery.io/docs) designed to help
 the MATLAB user emulate a device in MATLAB or manage their IoT deployment (Iotery Account).
