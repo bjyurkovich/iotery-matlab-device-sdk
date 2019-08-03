@@ -85,11 +85,16 @@ would be built like so:
 ```matlab
 data_out = struct();
 data_out.packets = [];
-data.timestamp = current_time;
-data.deviceUuid = device.uuid;
-data.deviceTypeUuid = device.deviceTypeUuid;
-data.data.vehicle_speed = 20.1;
-data.data.route_edge = 'main_road';
+
+t1 = datetime()
+format longG
+data.timestamp = posixtime(t1);
+
+data.deviceUuid = 'ba90ac1a-b3db-11e9-aa6f-79fb808c3f95';
+data.deviceTypeUuid = 'ba6764e0-b3db-11e9-aa6f-79fb808c3f95';
+data.data.voltage = 14;
+data.data.device_message = 'info';
+data.data.temperature = 100;
 data_out.packets = [data];
 ```
 
