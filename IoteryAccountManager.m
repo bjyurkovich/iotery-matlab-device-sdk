@@ -39,6 +39,8 @@ classdef IoteryAccountManager < handle
 %		updateDataType(dataTypeUuiddata)
 %		deleteDataType(dataTypeUuid)
 %		getCommandInstanceList( )
+%		getCommandInstance(commandInstanceUuid)
+%		updateCommandInstance(commandInstanceUuiddata)
 %		createDevice( data)
 %		getDeviceList( )
 %		createBatchedCommandInstances( data)
@@ -49,10 +51,13 @@ classdef IoteryAccountManager < handle
 %		createDeviceCommandInstance(deviceUuiddata)
 %		getDeviceDataList(deviceUuid)
 %		getDeviceEventList(deviceUuid)
+%		getDeviceIsppConfiguration(deviceUuid)
+%		updateDeviceIsppConfiguration(deviceUuid)
 %		createDeviceNotificationInstance(deviceUuiddata)
 %		getDeviceNotificationInstanceList(deviceUuid)
 %		createSetting(deviceUuiddata)
 %		getDeviceSettingList(deviceUuid)
+%		getDeviceSystemEventList(deviceUuid)
 %		getNotificationInstance(notificationInstanceUuid)
 %		updateNotificationInstance(notificationInstanceUuiddata)
 %		deleteNotificationInstance(notificationInstanceUuid)
@@ -116,6 +121,7 @@ classdef IoteryAccountManager < handle
 %		deleteTeam(teamUuid)
 %		linkAccountManagerToTeam(userUuiddata)
 %		unlinkAccountManagerFromTeam(userUuid)
+%		resetTeam(teamUuiddata)
 %		getGrouping(groupingUuid)
 %		updateGrouping(groupingUuiddata)
 %		deleteGrouping(groupingUuid)
@@ -174,6 +180,11 @@ classdef IoteryAccountManager < handle
 %		deleteWebhookAction(webhookActionUuid)
 %		getWebhookActionTypeList( )
 %		getWebhookActionType(webhookActionTypeUuid)
+%		createQrCode( data)
+%		getQrCodeList( )
+%		getQrCode(qrCodeUuid)
+%		updateQrCode(qrCodeUuiddata)
+%		deleteQrCode(qrCodeUuid)
 
     
     properties
@@ -452,6 +463,20 @@ function res = getCommandInstanceList(obj,  varargin)
 	res = obj.httpGetWithAuth([ '/'  'command-instances' '/']);
 end
 
+function res = getCommandInstance(obj, commandInstanceUuid,  varargin)
+% getCommandInstance - Get a command instance by uuid.
+% Input: commandInstanceUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1command-instances~1:commandInstanceUuid/get
+	res = obj.httpGetWithAuth([ '/'  'command-instances' '/' commandInstanceUuid '/']);
+end
+
+function res = updateCommandInstance(obj, commandInstanceUuid,  data)
+% updateCommandInstance - Update a command instance by uuid.
+% Input: commandInstanceUuid,  data
+% Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1command-instances~1:commandInstanceUuid/patch
+	res = obj.httpPatchWithAuth([ '/'  'command-instances' '/' commandInstanceUuid '/'], data);
+end
+
 function res = createDevice(obj,  data)
 % createDevice - Create a device.
 % Input:  data
@@ -522,6 +547,20 @@ function res = getDeviceEventList(obj, deviceUuid,  varargin)
 	res = obj.httpGetWithAuth([ '/'  'devices' '/' deviceUuid '/' 'events' '/']);
 end
 
+function res = getDeviceIsppConfiguration(obj, deviceUuid,  varargin)
+% getDeviceIsppConfiguration - Get an ISPP configuration for a device.
+% Input: deviceUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1devices~1:deviceUuid~1ispp-configuration/get
+	res = obj.httpGetWithAuth([ '/'  'devices' '/' deviceUuid '/' 'ispp-configuration' '/']);
+end
+
+function res = updateDeviceIsppConfiguration(obj, deviceUuid,  varargin)
+% updateDeviceIsppConfiguration - Update the ISPP configuration for a device.
+% Input: deviceUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1devices~1:deviceUuid~1ispp-configuration/put
+	res = obj.([ '/'  'devices' '/' deviceUuid '/' 'ispp-configuration' '/']);
+end
+
 function res = createDeviceNotificationInstance(obj, deviceUuid,  data)
 % createDeviceNotificationInstance - Create a notification instance for a device.
 % Input: deviceUuid,  data
@@ -548,6 +587,13 @@ function res = getDeviceSettingList(obj, deviceUuid,  varargin)
 % Input: deviceUuid, 
 % Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1devices~1:deviceUuid~1settings/get
 	res = obj.httpGetWithAuth([ '/'  'devices' '/' deviceUuid '/' 'settings' '/']);
+end
+
+function res = getDeviceSystemEventList(obj, deviceUuid,  varargin)
+% getDeviceSystemEventList - Get a list of system events for a device.
+% Input: deviceUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/Devices/paths/~1devices~1:deviceUuid~1system-events/get
+	res = obj.httpGetWithAuth([ '/'  'devices' '/' deviceUuid '/' 'system-events' '/']);
 end
 
 function res = getNotificationInstance(obj, notificationInstanceUuid,  varargin)
@@ -991,6 +1037,13 @@ function res = unlinkAccountManagerFromTeam(obj, userUuid,  varargin)
 	res = obj.httpDeleteWithAuth([ '/'  'teams' '/' 'users' '/' userUuid '/']);
 end
 
+function res = resetTeam(obj, teamUuid,  data)
+% resetTeam - Reset a team by uuid.
+% Input: teamUuid,  data
+% Link: https://iotery.io/docs/account-manager#tag/Teams/paths/~1teams~1:teamUuid~1reset/post
+	res = obj.httpPostWithAuth([ '/'  'teams' '/' teamUuid '/' 'reset' '/'], data);
+end
+
 function res = getGrouping(obj, groupingUuid,  varargin)
 % getGrouping - Get a grouping by uuid.
 % Input: groupingUuid, 
@@ -1395,6 +1448,41 @@ function res = getWebhookActionType(obj, webhookActionTypeUuid,  varargin)
 % Input: webhookActionTypeUuid, 
 % Link: https://iotery.io/docs/account-manager#tag/Webhooks/paths/~1webhook-action-types~1:webhookActionTypeUuid/get
 	res = obj.httpGetWithAuth([ '/'  'webhook-action-types' '/' webhookActionTypeUuid '/']);
+end
+
+function res = createQrCode(obj,  data)
+% createQrCode - Create a QR code.
+% Input:  data
+% Link: https://iotery.io/docs/account-manager#tag/QR-Codes/paths/~1qr-codes/post
+	res = obj.httpPostWithAuth([ '/'  'qr-codes' '/'], data);
+end
+
+function res = getQrCodeList(obj,  varargin)
+% getQrCodeList - Get a list of QR codes.
+% Input: 
+% Link: https://iotery.io/docs/account-manager#tag/QR-Codes/paths/~1qr-codes/get
+	res = obj.httpGetWithAuth([ '/'  'qr-codes' '/']);
+end
+
+function res = getQrCode(obj, qrCodeUuid,  varargin)
+% getQrCode - Get a QR code by uuid.
+% Input: qrCodeUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/QR-Codes/paths/~1qr-codes~1:qrCodeUuid/get
+	res = obj.httpGetWithAuth([ '/'  'qr-codes' '/' qrCodeUuid '/']);
+end
+
+function res = updateQrCode(obj, qrCodeUuid,  data)
+% updateQrCode - Update a QR code by uuid.
+% Input: qrCodeUuid,  data
+% Link: https://iotery.io/docs/account-manager#tag/QR-Codes/paths/~1qr-codes~1:qrCodeUuid/patch
+	res = obj.httpPatchWithAuth([ '/'  'qr-codes' '/' qrCodeUuid '/'], data);
+end
+
+function res = deleteQrCode(obj, qrCodeUuid,  varargin)
+% deleteQrCode - Delete a QR code by uuid.
+% Input: qrCodeUuid, 
+% Link: https://iotery.io/docs/account-manager#tag/QR-Codes/paths/~1qr-codes~1:qrCodeUuid/delete
+	res = obj.httpDeleteWithAuth([ '/'  'qr-codes' '/' qrCodeUuid '/']);
 end
 
 
